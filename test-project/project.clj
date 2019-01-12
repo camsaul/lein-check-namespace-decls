@@ -3,7 +3,7 @@
   :dependencies [[org.clojure/clojure "1.10.0"]]
 
   :plugins
-  [[lein-check-namespace-decls "1.0.0"]]
+  [[lein-check-namespace-decls "LATEST"]]
 
   :profiles
   {

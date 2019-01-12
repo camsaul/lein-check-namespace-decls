@@ -23,6 +23,8 @@ run_test() {
     fi
 }
 
+lein install
+
 cd test-project
 
 run_test good 0
