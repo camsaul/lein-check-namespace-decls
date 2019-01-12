@@ -22,7 +22,7 @@ Checks the following:
 *  The top-level forms inside the `ns` form follow the [conventional
    order](https://github.com/bbatsov/clojure-style-guide#comprehensive-ns-declaration):
    `:gen-class`, `:refer-clojure`, `:require`, `:import`
-*  Namespaces that share prefixes use prefix lists (configurable)
+*  Namespaces in `:require` use shared prefixes (e.g. `(:require [clojure [string :as str] [data :as data]])`)
 
 For files with `ns` declarations that don't satisfy these rules, the
 linter tells you how to fix namespace declarations that aren't cleaned
