@@ -108,7 +108,7 @@ personally like them, so I stuck with the default behavior of
 
 ###### `:ignore-paths`
 
-Specify a collection regexes of filenames to ignore.
+Specify a collection of regexes of filenames to ignore.
 
 ```clj
 ;; ignore any files ending in core.clj
