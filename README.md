@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/camsaul/lein-check-namespace-decls.svg?style=svg)](https://circleci.com/gh/camsaul/lein-check-namespace-decls)
+
 # lein-check-namespace-decls
 
 A Leiningen plugin that lints source files in your Clojure project to
