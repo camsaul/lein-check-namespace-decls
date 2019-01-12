@@ -82,7 +82,7 @@ The most interesting ones when using this as a linter are:
 
 By setting `{:prefix-rewriting false}` the `ns` form will not be
 expected to use prefix lists when including several libs whose names
-have the same prefix, e.g.:
+have the same prefix. The default behavior uses prefixes:
 
 ```clj
 ;; Cleaned ns form with :prefix-rewriting true (default)
@@ -92,7 +92,7 @@ have the same prefix, e.g.:
              [parse :as ns.parse]]))
 ```
 
-Contrast this to the default behavior:
+Contrast this to `ns` forms without prefixes:
 
 ```clj
 ;; Cleaned ns form with :prefix-rewriting false
