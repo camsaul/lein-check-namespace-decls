@@ -1,4 +1,8 @@
-[![CircleCI](https://circleci.com/gh/camsaul/lein-check-namespace-decls.svg?style=svg)](https://circleci.com/gh/camsaul/lein-check-namespace-decls)
+[![Dependencies Status](https://versions.deps.co/camsaul/lein-check-namespace-decls/status.svg)](https://versions.deps.co/camsaul/lein-check-namespace-decls)
+[![Circle CI](https://circleci.com/gh/camsaul/lein-check-namespace-decls.svg?style=svg)](https://circleci.com/gh/camsaul/lein-check-namespace-decls)
+[![License](https://img.shields.io/badge/license-Eclipse%20Public%20License-blue.svg)](https://raw.githubusercontent.com/camsaul/lein-check-namespace-decls/master/LICENSE)
+
+[![Clojars Project](https://clojars.org/lein-check-namespace-decls/latest-version.svg)](http://clojars.org/lein-check-namespace-decls)
 
 # lein-check-namespace-decls
 
