@@ -125,24 +125,24 @@ set this to `false`.
 
 #### Including or excluding source directories
 
-`lein-check-namespace-decls` simply checks any Clojure source files it finds in `:source-paths`, excluding any that match
+`lein-check-namespace-decls` simply checks any Clojure source files it finds in `:source-paths`, excluding any that match a pattern in `:ignore-paths`.
 
-To include or exclude entire directories from the linter you can add
-modify or replace `:source-paths`; the easiest way to do this without
-affecting the rest of your project is to profile for
+To include or exclude entire directories from the linter you can 
+modify or `^:replace` `:source-paths`; the easiest way to do this without
+affecting the rest of your project is to add a profile for
 `lein-check-namespace-decls` and an alias that automatically applies
 it:
 
 ```clj
-;; Check the sources under `./test/` in addition to the normal :source-paths (e.g. `./src/`
+;; Check the sources under `./test/` in addition to the normal :source-paths (e.g. `./src/`)
 (defproject my-project
   :aliases {"check-namespace-decls" ["with-profile" "+check-namespace-decls" "check-namespace-decls"]}
   :plugins [[lein-check-namespace-decls "1.0.0"]]
   :profiles {:check-namespace-decls {:source-paths ["test"]}})
 ```
 
-For more information on Leiningen profiles refer to the [Leiningen
-documentation](https://github.com/technomancy/leiningen/blob/master/doc/PROFILES.md).
+If the above seems like black magic, the [Leiningen
+documentation](https://github.com/technomancy/leiningen/blob/master/doc/PROFILES.md) does a great job of explaining how Leiningen plugins work in more detail.
 
 #### Verbose logging
 
