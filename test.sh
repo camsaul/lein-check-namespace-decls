@@ -23,17 +23,69 @@ run_test() {
     fi
 }
 
+good-no-prefixes() {
+    run_test good-no-prefixes 0
+}
+
+good-prefixes() {
+    run_test good-prefixes 0
+}
+
+good-refer-all() {
+    run_test good-refer-all 0
+}
+
+ignore-unused() {
+    run_test ignore-unused 0
+}
+
+ignore-paths() {
+    run_test ignore-paths 0
+}
+
+bad-unsorted() {
+    run_test bad-unsorted 1
+}
+
+bad-unused() {
+    run_test bad-unused 1
+}
+
+bad-prefixes() {
+    run_test bad-prefixes 1
+}
+
+bad-invalid-files() {
+    run_test bad-invalid-files 1
+}
+
+all() {
+    good-no-prefixes
+    good-prefixes
+    good-refer-all
+    ignore-unused
+    ignore-paths
+    bad-unsorted
+    bad-unused
+    bad-prefixes
+    bad-invalid-files
+}
+
+# Install locally & switch to test project dir
+echo 'Installing locally...'
 lein install
 
 cd test-project
 
-run_test good 0
-run_test good-prefixes 0
-run_test ignore-unused 0
-run_test ignore-paths 0
-run_test bad-unsorted 1
-run_test bad-unused 1
-run_test bad-prefixes 1
-run_test bad-invalid-files 1
+# Run specific tests like ./test.sh good-refer-all
+# Run all tests like ./test.sh
+
+if [ "$1" ]; then
+    for test_fn in "$@"; do
+        "$test_fn"
+    done
+else
+    all
+fi
 
 echo -e "$GREEN""All tests completed successfully.""$RESET"

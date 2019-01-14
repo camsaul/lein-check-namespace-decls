@@ -1,6 +1,7 @@
 (ns core
-  (:require [clojure.string :as str]
-            [clojure.data :as data]))
+  (:require [clojure
+             [string :as str]
+             [data :as data]]))
 
 (defn hello []
   (str/join ["HE" "LLO"])

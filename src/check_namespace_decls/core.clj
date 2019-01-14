@@ -18,6 +18,7 @@
   "Read `ns` decl from a file and return cleaned form iff different from the actual form. If the actual form is already
   cleaned, returns `nil`."
   [filename]
+  (load-file filename)
   (r.clean-ns/clean-ns {:path filename}))
 
 (defn- file-is-ok?
