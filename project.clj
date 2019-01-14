@@ -1,4 +1,4 @@
-(defproject lein-check-namespace-decls "1.0.0"
+(defproject lein-check-namespace-decls "1.0.1"
   :dependencies
   [[org.clojure/tools.namespace "0.2.11"]
    [cider/cider-nrepl "0.19.0"]

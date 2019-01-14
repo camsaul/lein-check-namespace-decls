@@ -14,6 +14,9 @@
    :good-prefixes
    {:source-paths ^:replace ["good-prefixes"]}
 
+   :good-refer-all
+   {:source-paths ^:replace ["good-refer-all"]}
+
    :ignore-unused
    {:source-paths          ^:replace ["unused"]
     :check-namespace-decls {:prune-ns-form false}}
