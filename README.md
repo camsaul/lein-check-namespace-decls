@@ -44,12 +44,12 @@ will exit with a nonzero status.
 
 ### Adding the dependency to `:plugins`
 
-Add `[lein-check-namespace-decls "1.0.0"]` into the `:plugins` vector of your
+Add `[lein-check-namespace-decls "1.0.1"]` into the `:plugins` vector of your
 `project.clj` or `~/.lein/profiles.clj`.
 
 ```clj
 (defproject my-project
-  :plugins [[lein-check-namespace-decls "1.0.0"]])
+  :plugins [[lein-check-namespace-decls "1.0.1"]])
 ```
 
 ### Running the linter
@@ -127,7 +127,7 @@ set this to `false`.
 
 `lein-check-namespace-decls` simply checks any Clojure source files it finds in `:source-paths`, excluding any that match a pattern in `:ignore-paths`.
 
-To include or exclude entire directories from the linter you can 
+To include or exclude entire directories from the linter you can
 modify or `^:replace` `:source-paths`; the easiest way to do this without
 affecting the rest of your project is to add a profile for
 `lein-check-namespace-decls` and an alias that automatically applies
@@ -137,7 +137,7 @@ it:
 ;; Check the sources under `./test/` in addition to the normal :source-paths (e.g. `./src/`)
 (defproject my-project
   :aliases {"check-namespace-decls" ["with-profile" "+check-namespace-decls" "check-namespace-decls"]}
-  :plugins [[lein-check-namespace-decls "1.0.0"]]
+  :plugins [[lein-check-namespace-decls "1.0.1"]]
   :profiles {:check-namespace-decls {:source-paths ["test"]}})
 ```
 
