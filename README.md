@@ -44,12 +44,12 @@ will exit with a nonzero status.
 
 ### Adding the dependency to `:plugins`
 
-Add `[lein-check-namespace-decls "1.0.1"]` into the `:plugins` vector of your
+Add `[lein-check-namespace-decls "1.0.2"]` into the `:plugins` vector of your
 `project.clj` or `~/.lein/profiles.clj`.
 
 ```clj
 (defproject my-project
-  :plugins [[lein-check-namespace-decls "1.0.1"]])
+  :plugins [[lein-check-namespace-decls "1.0.2"]])
 ```
 
 ### Running the linter
@@ -137,7 +137,7 @@ it:
 ;; Check the sources under `./test/` in addition to the normal :source-paths (e.g. `./src/`)
 (defproject my-project
   :aliases {"check-namespace-decls" ["with-profile" "+check-namespace-decls" "check-namespace-decls"]}
-  :plugins [[lein-check-namespace-decls "1.0.1"]]
+  :plugins [[lein-check-namespace-decls "1.0.2"]]
   :profiles {:check-namespace-decls {:source-paths ["test"]}})
 ```
 
