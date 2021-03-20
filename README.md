@@ -154,6 +154,6 @@ those files). This is useful for debugging which files are checked by the linter
 
 ## License
 
-Copyright © 2019 Cam Saul.
+Copyright © 2021 Cam Saul.
 
 Distributed under the Eclipse Public License, same as Clojure.

@@ -1,23 +1,23 @@
 version: 2.1
 
 jobs:
-  test:
+  checkout:
     working_directory: /home/circleci/camsaul/lein-check-namespace-decls
     docker:
       - image: circleci/clojure:lein-2.8.1
     steps:
-      ########## FETCH SOURCE ##########
+      # Checkout source
       - restore_cache:
           keys:
             - source-{{ .Branch }}-{{ .Revision }}
-            - source-{{ .Branch }}-
+            - source-{{ .Branch }}
             - source-
       - checkout
       - save_cache:
           key: source-{{ .Branch }}-{{ .Revision }}
           paths:
             - .git
-      ########## FETCH DEPS ##########
+      # Fetch deps
       - restore_cache:
           keys:
             - be-deps-{{ checksum "project.clj" }}
@@ -27,14 +27,47 @@ jobs:
           key: be-deps-{{ checksum "project.clj" }}
           paths:
             - /home/circleci/.m2
-      ########## RUN TESTS ##########
+      # persist so other steps can use it
+      - persist_to_workspace:
+          root: /home/circleci/
+          paths:
+            - .m2
+            - camsaul/lein-check-namespace-decls
+
+  test:
+    working_directory: /home/circleci/camsaul/lein-check-namespace-decls
+    docker:
+      - image: circleci/clojure:lein-2.8.1
+    steps:
+      - attach_workspace:
+          at: /home/circleci
       - run:
           name: Run tests
           command: ./test.sh
           no_output_timeout: 5m
 
+  deploy:
+    working_directory: /home/circleci/camsaul/lein-check-namespace-decls
+    docker:
+      - image: circleci/clojure:lein-2.8.1
+    steps:
+      - attach_workspace:
+          at: /home/circleci
+      - run:
+          name: Deploy to clojars
+          command: lein deploy clojars
+
 workflows:
   version: 2
   build:
     jobs:
-      - test
+      - checkout
+      - test:
+          requires:
+            - checkout
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master

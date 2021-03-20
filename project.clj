@@ -20,4 +20,11 @@
    {:dependencies      [[org.clojure/clojure "1.10.3"]]
     :eval-in-leiningen false}}
 
-  :eval-in-leiningen true)
+  :eval-in-leiningen true
+
+  :deploy-repositories
+  [["clojars"
+    {:url           "https://clojars.org/repo"
+     :username      :env/clojars_username
+     :password      :env/clojars_password
+     :sign-releases false}]])
