@@ -1,9 +1,8 @@
 (ns check-namespace-decls.core
   (:require [check-namespace-decls.print :as print]
             [clojure.java.io :as io]
-            [clojure.tools.namespace
-             [find :as ns.find]
-             [parse :as ns.parse]]
+            [clojure.tools.namespace.find :as ns.find]
+            [clojure.tools.namespace.parse :as ns.parse]
             [refactor-nrepl.config :as r.config]
             [refactor-nrepl.ns.clean-ns :as r.clean-ns])
   (:import [java.io File PushbackReader]))
@@ -12,14 +11,21 @@
   "Read the actual `ns` decl from a file."
   [filename]
   (with-open [reader (PushbackReader. (io/reader filename))]
-    (ns.parse/read-ns-decl reader)))
+    (let [decl (ns.parse/read-ns-decl reader {:read-cond :preserve})]
+      (mapcat (fn [form]
+                (if (reader-conditional? form)
+                  [(symbol (if (:splicing? form) "#?@" "#?")) (:form form)]
+                  [form]))
+              decl))))
 
 (defn- cleaned-decl
   "Read `ns` decl from a file and return cleaned form iff different from the actual form. If the actual form is already
   cleaned, returns `nil`."
   [filename]
   (load-file filename)
-  (r.clean-ns/clean-ns {:path filename}))
+  (let [cleaned (r.clean-ns/clean-ns {:path filename})]
+    (when-not (= cleaned (actual-decl filename))
+      cleaned)))
 
 (defn- file-is-ok?
   "Returns true is the `ns` declaration in a file is already cleaned; if not, prints and error message and returns
