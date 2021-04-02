@@ -17,7 +17,10 @@
 
   :profiles
   {:dev
-   {:dependencies      [[org.clojure/clojure "1.10.3"]]
+   {:dependencies      [[org.clojure/clojure "1.10.3"]
+                        [pjstadig/humane-test-output "0.10.0"]]
+    :injections        [(require 'pjstadig.humane-test-output)
+                        (pjstadig.humane-test-output/activate!)]
     :eval-in-leiningen false}}
 
   :eval-in-leiningen true
