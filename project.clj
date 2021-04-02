@@ -1,4 +1,4 @@
-(defproject lein-check-namespace-decls "1.0.3"
+(defproject lein-check-namespace-decls "1.0.4-SNAPSHOT"
   :min-lein-version "2.5.0"
 
   :description
