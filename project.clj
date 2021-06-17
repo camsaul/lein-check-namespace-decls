@@ -1,4 +1,4 @@
-(defproject lein-check-namespace-decls "1.0.3"
+(defproject lein-check-namespace-decls "1.0.4"
   :min-lein-version "2.5.0"
 
   :description
@@ -11,7 +11,7 @@
 
   :dependencies
   [[org.clojure/tools.namespace "1.1.0"]
-   [cider/cider-nrepl "0.25.9"]
+   [cider/cider-nrepl "0.26.0"]
    [mvxcvi/puget "1.3.1"]
    [refactor-nrepl "2.5.1"]]
 
