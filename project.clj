@@ -1,4 +1,4 @@
-(defproject lein-check-namespace-decls "1.0.3"
+(defproject lein-check-namespace-decls "1.0.4-SNAPSHOT"
   :min-lein-version "2.5.0"
 
   :description
@@ -11,16 +11,19 @@
 
   :dependencies
   [[org.clojure/tools.namespace "1.1.0"]
-   [cider/cider-nrepl "0.25.9"]
+   [cider/cider-nrepl "0.26.0"]
    [mvxcvi/puget "1.3.1"]
    [refactor-nrepl "2.5.1"]]
 
   :profiles
   {:dev
-   {:dependencies      [[org.clojure/clojure "1.10.3"]]
-    :eval-in-leiningen false}}
-
-  :eval-in-leiningen true
+   {:dependencies [[org.clojure/clojure "1.10.3"]
+                   [leiningen-core "2.9.6"] ; for tests
+                   [org.tcrawley/dynapath "1.1.0"]
+                   [pjstadig/humane-test-output "0.11.0"]]
+    :injections   [(require 'pjstadig.humane-test-output)
+                   (pjstadig.humane-test-output/activate!)]
+    :source-paths ["test-namespaces"]}}
 
   :deploy-repositories
   [["clojars"

@@ -1,4 +1,4 @@
-(ns core
+(ns bad-prefixes.core
   (:require [clojure.data :as data]
             [clojure.string :as str]))
 

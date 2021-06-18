@@ -1,4 +1,4 @@
-(ns core
+(ns good-no-prefixes.core
   (:require [clojure.java.io :as io]
             [clojure.string :as str]))
 

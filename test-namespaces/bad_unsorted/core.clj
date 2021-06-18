@@ -1,7 +1,7 @@
-(ns core
+(ns bad-unsorted.core
   (:require [clojure
-             [data :as data]
-             [string :as str]]))
+             [string :as str]
+             [data :as data]]))
 
 (defn hello []
   (str/join ["HE" "LLO"])
