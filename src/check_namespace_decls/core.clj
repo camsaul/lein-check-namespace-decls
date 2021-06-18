@@ -27,23 +27,24 @@
     (when-not (= cleaned (actual-decl filename))
       cleaned)))
 
-(defn- file-is-ok?
-  "Returns true is the `ns` declaration in a file is already cleaned; if not, prints and error message and returns
-  false. When env var `DEBUG` is true, prints a message for each file it checks."
+(defn- file-error
+  "Returns map with info about the error if the `ns` declaration if it isn't cleaned; returns `nil` if it is cleaned.
+  When env var `DEBUG` is true, prints a message for each file it checks."
   [filename]
   (print/debug "Checking" filename)
   (try
-    ;; if cleaned ns decl is different from what's already there print message about it being unclean and return false
+    ;; if cleaned ns decl is different from what's already there print message about it being unclean and return the
+    ;; error
     (if-let [cleaned (cleaned-decl filename)]
       (do
         (print/error-diff filename cleaned (actual-decl filename))
-        false)
-      ;; otherwise if already clean return true
-      true)
-    ;; if we couldn't parse the file for one reason or another log the Exception and return false
+        {:expected cleaned, :actual (actual-decl filename)})
+      ;; otherwise if already clean nothing to return
+      nil)
+    ;; if we couldn't parse the file for one reason or another log the Exception and return the Exception
     (catch Throwable e
       (print/exception (format "Error parsing %s" filename) e)
-      false)))
+      {:error e})))
 
 (defn- ignore-file?
   "Check whether we should skip filename because it matches a pattern in the `:ignore-paths` in the configuration. If
@@ -56,13 +57,13 @@
     (print/debug "Ignoring" filename "because it matches regex" matching-pattern)
     true))
 
-(defn- all-files-are-ok?
-  "True if the `ns` declarations of all Clojure source files in `source-paths` are clean; false if one or more are not."
+(defn errors
+  "Returns map of source filename -> error info for files that failed the check, or `nil` if there are no errors."
   [source-paths custom-config]
   ;; keep count of each file, checked and each file with an error
-  (let [total        (atom 0)
-        total-errors (atom 0)
-        config       (merge r.config/*config* custom-config)]
+  (let [total  (atom 0)
+        errors (atom {})
+        config (merge r.config/*config* custom-config)]
     (print/debug "Using config:" config (list 'merge r.config/*config* custom-config))
     (binding [r.config/*config* config]
       (doseq [source-path       source-paths
@@ -72,15 +73,14 @@
               :let              [filename (.getCanonicalPath source-file)]
               :when             (not (ignore-file? filename))]
         (swap! total inc)
-        (when-not (file-is-ok? filename)
-          (swap! total-errors inc)))
-      (println (print/with-color :blue (format "Checked %d files; %d had errors." @total @total-errors)))
-      ;; all files are ok if total-errors = 0
-      (zero? @total-errors))))
+        (when-let [error (file-error filename)]
+          (swap! errors assoc filename error)))
+      (println (print/with-color :blue (format "Checked %d files; %d had errors." @total (count @errors))))
+      (not-empty @errors))))
 
 (defn- check-namespace-decls* [source-paths config]
   (println "Checking namespace declarations...")
-  (when-not (all-files-are-ok? source-paths config)
+  (when (errors source-paths config)
     (System/exit 1))
   (println "All namespace declarations are OK. Good work!")
   (System/exit 0))
