@@ -8,7 +8,6 @@
 
 (defn- project-root [test-dir]
   (let [file (io/file (str "test-namespaces/" test-dir))]
-    (assert (.exists file))
     (.getAbsolutePath file)))
 
 (defn- lein-project [test-dir options]
