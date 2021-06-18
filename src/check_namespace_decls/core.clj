@@ -88,11 +88,15 @@
 (defn check-namespace-decls
   "Check that all `ns` declarations in `source-paths` are cleaned and exit with a status of 0 if all namespaces are
   clean; otherwise print error messages for each improperly formatted ns declaration and exit with nonzero status."
-  [source-paths config]
-  (try
-    (check-namespace-decls* source-paths config)
-    (catch Throwable e
-      (print/exception "Exception running check-namespace-decls:" e)
-      ;; exit with a 2 instead of the usual 1 so tests can differentiate between a successful run that found bad files
-      ;; vs a run that couldn't finish
-      (System/exit 2))))
+  ;; one-arity version: for deps.edn usage
+  ([config]
+   (check-namespace-decls (:source-paths config) (dissoc config :source-paths)))
+  ;; two-arity version: for lein plugin usage
+  ([source-paths config]
+   (try
+     (check-namespace-decls* source-paths config)
+     (catch Throwable e
+       (print/exception "Exception running check-namespace-decls:" e)
+       ;; exit with a 2 instead of the usual 1 so tests can differentiate between a successful run that found bad files
+       ;; vs a run that couldn't finish
+       (System/exit 2)))))
