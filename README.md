@@ -4,9 +4,15 @@
 
 [![Clojars Project](https://clojars.org/lein-check-namespace-decls/latest-version.svg)](http://clojars.org/lein-check-namespace-decls)
 
+(or if you're using `deps.edn`)
+
+```clj
+{lein-check-namespace-decls/lein-check-namespace-decls {:mvn/version "1.0.4"}}
+```
+
 # lein-check-namespace-decls
 
-A Leiningen plugin that lints source files in your Clojure project to
+A Leiningen (or `deps.edn`) plugin that lints source files in your Clojure project to
 check whether the `ns` declarations are cleaned the way
 [`refactor-nrepl`](https://github.com/clojure-emacs/refactor-nrepl)
 and
@@ -42,7 +48,9 @@ will exit with a nonzero status.
 
 ## Usage
 
-### Adding the dependency to `:plugins`
+As of 1.0.4, this linter works with either Leiningen or `deps.edn`:
+
+### Adding the dependency to `:plugins` (Leiningen):
 
 Add `[lein-check-namespace-decls "1.0.2"]` into the `:plugins` vector of your
 `project.clj` or `~/.lein/profiles.clj`.
@@ -52,12 +60,33 @@ Add `[lein-check-namespace-decls "1.0.2"]` into the `:plugins` vector of your
   :plugins [[lein-check-namespace-decls "1.0.2"]])
 ```
 
+### Add an alias to `deps.edn`:
+
+```clj
+{:aliases
+ {:namespace-checker
+  {:extra-deps {lein-check-namespace-decls/lein-check-namespace-decls {:mvn/version "1.0.4"}}
+   :exec-fn    check-namespace-decls.core/check-namespace-decls
+   :exec-args  {:prefix-rewriting false
+                :source-paths     ["src" "test"]}}}}
+```
+
+`:exec-args` taks the same options you can specify in your Leiningen project, with the additional requirement that you *must* pass `:source-paths` (a list of directories to lint) as well as in the example above.
+
 ### Running the linter
 
 Run the linter like this:
 
-```
+```bash
+# Leiningen
 lein check-namespace-decls
+```
+
+or
+
+```bash
+# deps.edn
+clojure -X:namespace-checker
 ```
 
 This will check `ns` declaration forms for all Clojure source files in
