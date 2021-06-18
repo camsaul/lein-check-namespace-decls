@@ -1,4 +1,4 @@
-(ns conditional
+(ns good-conditionals.conditional
   #?@
   (:clj
    [(:require [clojure.java.io :as io]

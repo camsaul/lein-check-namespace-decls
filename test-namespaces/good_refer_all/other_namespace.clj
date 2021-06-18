@@ -1,4 +1,4 @@
-(ns other-namespace)
+(ns good-refer-all.other-namespace)
 
 (def x 100)
 

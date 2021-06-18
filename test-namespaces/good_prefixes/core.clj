@@ -1,7 +1,7 @@
-(ns core
+(ns good-prefixes.core
   (:require [clojure
-             [string :as str]
-             [data :as data]]))
+             [data :as data]
+             [string :as str]]))
 
 (defn hello []
   (str/join ["HE" "LLO"])

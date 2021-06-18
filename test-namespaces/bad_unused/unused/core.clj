@@ -1,4 +1,4 @@
-(ns core
+(ns bad-unused.unused.core
   (:require [clojure
              [data :as data]
              [string :as str]]
