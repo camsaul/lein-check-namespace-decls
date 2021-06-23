@@ -50,7 +50,7 @@
 (deftest good-conditionals
   (with-project [project ["good_conditionals" {:prefix-rewriting false}]]
     (is (nil? (check-decls project)))
-    (is (= ["Checked 1 files; 0 had errors."]
+    (is (= ["Checked 2 files; 0 had errors."]
            (capture-output #(check-decls project))))))
 
 (deftest good-prefixes
