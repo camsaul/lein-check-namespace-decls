@@ -1,3 +1,6 @@
+# This project has been archived. [`clj-kondo`](https://github.com/clj-kondo/clj-kondo) can now check for unsorted and unused namespace declarations, so please switch to that for all your namespace declaration liniting needs.
+
+
 [![Dependencies Status](https://versions.deps.co/camsaul/lein-check-namespace-decls/status.svg)](https://versions.deps.co/camsaul/lein-check-namespace-decls)
 [![Circle CI](https://circleci.com/gh/camsaul/lein-check-namespace-decls.svg?style=svg)](https://circleci.com/gh/camsaul/lein-check-namespace-decls)
 [![License](https://img.shields.io/badge/license-Eclipse%20Public%20License-blue.svg)](https://raw.githubusercontent.com/camsaul/lein-check-namespace-decls/master/LICENSE)
